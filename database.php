@@ -19,6 +19,8 @@ class Database
         } catch (Exception $e) {
             exit($e->getMessage());
         }
+
+        return $this->connect;
     }
 
 
@@ -62,6 +64,43 @@ class Database
             return $this->result0;
         } else {
             return false;
+        }
+    }
+
+    public function create($table, $values, $rows = null)
+    {
+        if($this->tableExists($table)) {
+            $insert = 'INSERT INTO `'.$table.'`';
+            if($rows != null)
+            {
+                $insert .= ' ('.$rows.')';
+            }
+
+            for($i = 0; $i < count($values); $i++)
+            {
+                if(is_string($values[$i]))
+                    $values[$i] = "'".$values[$i]."'";
+            }
+            $values = implode(',',$values);
+            $insert .= ' VALUES ('.$values.');';
+
+            if ($this->connect->query($insert)) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $insert . "<br>" . mysqli_error($this->connect);
+            }
+        }
+    }
+
+    private function tableExists($table)
+    {
+        $tablesInDb = mysqli_query($this->connect, 'SHOW TABLES FROM '.Connect_db::$db_name.' LIKE "'.$table.'"');
+        if($tablesInDb) {
+            if(mysqli_num_rows($tablesInDb)==1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

@@ -1,3 +1,7 @@
+<?php
+    require 'modals.php';
+?>
+
 <h1>Control</h1>
 <div class="container">
     <div class="row">
@@ -8,10 +12,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-success">Добавить раздел</button>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addChapter">Добавить раздел</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary">Изменить раздел</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#changeChapter">Изменить раздел</button>
         </div>
     </div>
 </div>
@@ -21,10 +25,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-success">Добавить элемент</button>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addElem">Добавить элемент</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-primary">Изменить элемент</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#changeElem">Изменить элемент</button>
         </div>
     </div>
 </div>
@@ -34,10 +38,14 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-danger">Удалить раздел</button>
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteChapter">Удалить раздел</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-outline-danger">Удалить элемент</button>
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteElem">Удалить элемент</button>
         </div>
     </div>
 </div>
+
+<?php
+require 'modals.php';
+?>
