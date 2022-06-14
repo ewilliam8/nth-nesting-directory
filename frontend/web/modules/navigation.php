@@ -9,7 +9,11 @@
         $db_elem = new Database();
         $db_elem->connect();
 
-        $res_chap = $db_chap->select('chapter');
+        if(!isset($_POST['sort'])) {
+            $res_chap = $db_chap->select('chapter');
+        } else {
+            $res_chap = $db_chap->select('chapter', '*', null, 'title');
+        }
         $res_elem = $db_elem->select('elem');
 
         function create_tree ($sec, $elem, $parent_id){
@@ -26,7 +30,6 @@
                             $tree .= "<ul class='list-group-item ml-3'>".$elem[$k]["title"]."</ul>";
                          }
                     }
-
                     $tree .= '</li>';
                 }
                 elseif ($sec[$i]["parent_id"] == $parent_id) {
@@ -38,7 +41,6 @@
                             $tree .= "<ul class='list-group-item ml-3'>".$elem[$k]["title"]."</ul>";
                         }
                     }
-//                        $tree .= '</li>';
                 }
             }
             $tree .= '</ul>';

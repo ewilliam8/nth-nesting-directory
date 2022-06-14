@@ -6,7 +6,6 @@ require 'config/Connect_db.php';
 class Database
 {
     private $connect;
-    private $result0 = array();
 
     public function connect ()
     {
@@ -23,22 +22,15 @@ class Database
         return $this->connect;
     }
 
-
     public function select($table, $rows = '*', $where = null, $order = null)
     {
-        $mysqli = new mysqli(
-            Connect_db::$db_host,
-            Connect_db::$db_user,
-            Connect_db::$db_pass,
-            Connect_db::$db_name);
-
         $q = 'SELECT '.$rows.' FROM '.$table;
         if($where != null)
             $q .= ' WHERE '.$where;
         if($order != null)
             $q .= ' ORDER BY '.$order;
 
-        $query = $mysqli->query($q);
+        $query = $this->connect->query($q);
 
         if($query)
         {
@@ -85,10 +77,62 @@ class Database
             $insert .= ' VALUES ('.$values.');';
 
             if ($this->connect->query($insert)) {
-                echo "New record created successfully";
+//                echo "New record created successfully";
             } else {
                 echo "Error: " . $insert . "<br>" . mysqli_error($this->connect);
             }
+        }
+    }
+
+    public function delete($table, $where = null)
+    {
+        if($this->tableExists($table)) {
+            if($where == null) {
+                $delete = 'DELETE '.$table;
+            } else {
+                $delete = 'DELETE FROM '.$table.' WHERE '.$where;
+            }
+            @mysqli_query($this->connect, $delete);
+
+        } else {
+            return false;
+        }
+    }
+
+    public function update($table, $rows, $where, $condition)
+    {
+        if($this->tableExists($table)) {
+            for($i = 0; $i < count($where); $i++)
+            {
+                if($i % 2 != 0) {
+                    if(is_string($where[$i])) {
+                        if(($i+1) != null) {
+                            //$where[$i] = '"'.$where[$i].'" AND ';
+                        }
+                        else
+                            $where[$i] = '"'.$where[$i].'"';
+                    }
+                }
+            }
+            $where = implode($condition, $where);
+
+            $update = 'UPDATE '.$table.' SET ';
+            $keys = array_keys($rows);
+            for($i = 0; $i < count($rows); $i++)
+            {
+                if(is_string($rows[$keys[$i]])) {
+                    $update .= $keys[$i].'="'.$rows[$keys[$i]].'"';
+                } else {
+                    $update .= $keys[$i].'='.$rows[$keys[$i]];
+                }
+
+                if($i != count($rows) - 1) {
+                    $update .= ',';
+                }
+            }
+            $update .= ' WHERE '.$where;
+
+            @mysqli_query($this->connect, $update);
         }
     }
 

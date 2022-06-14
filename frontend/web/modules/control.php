@@ -3,11 +3,6 @@
 ?>
 
 <h1>Control</h1>
-<div class="container">
-    <div class="row">
-
-    </div>
-</div>
 
 <div class="container">
     <div class="row">
@@ -46,6 +41,9 @@
     </div>
 </div>
 
-<?php
-require 'modals.php';
-?>
+<hr/>
+
+<form method="post" action="insert.php">
+    <!--    TODO unsort-->
+    <input name="sort" class="btn btn-outline-secondary ml-3" type="submit" value="Сортировать имена (а - я)">
+</form>
