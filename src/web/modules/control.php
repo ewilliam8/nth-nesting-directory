@@ -44,6 +44,11 @@
 <hr/>
 
 <form method="post" action="insert.php">
-    <!--    TODO unsort-->
-    <input name="sort" class="btn btn-outline-secondary ml-3" type="submit" value="Сортировать имена (а - я)">
+    <input name="sortAz" class="btn btn-outline-secondary ml-3" type="submit" value="Сортировать имена (а - я)">
+</form>
+
+<hr/>
+
+<form method="post" action="insert.php">
+    <input name="sortTime" class="btn btn-outline-secondary ml-3" type="submit" value="Сортировать по времени">
 </form>

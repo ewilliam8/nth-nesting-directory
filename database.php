@@ -106,11 +106,9 @@ class Database
             {
                 if($i % 2 != 0) {
                     if(is_string($where[$i])) {
-                        if(($i+1) != null) {
-                            //$where[$i] = '"'.$where[$i].'" AND ';
-                        }
-                        else
+                        if(($i + 1) == null) {
                             $where[$i] = '"'.$where[$i].'"';
+                        }
                     }
                 }
             }

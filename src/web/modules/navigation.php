@@ -9,8 +9,10 @@
         $db_elem = new Database();
         $db_elem->connect();
 
-        if(!isset($_POST['sort'])) {
+        if(!isset($_POST['sortAz'])) {
             $res_chap = $db_chap->select('chapter');
+        } elseif(!isset($_POST['sortTime'])) {
+            $res_chap = $db_chap->select('chapter', '*', null, 'updated_at');
         } else {
             $res_chap = $db_chap->select('chapter', '*', null, 'title');
         }

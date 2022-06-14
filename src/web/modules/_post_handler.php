@@ -29,7 +29,6 @@ if(!empty($_POST)) {
         $id = $_POST['deleteChapter'];
 
         if($id != -1) {
-            // TODO найти все зависимости через select и удалить
             $db->delete('chapter', 'id='.$id);
             $db->delete('chapter', 'parent_id='.$id);
             $db->delete('elem', 'parent_id='.$id);
@@ -47,11 +46,10 @@ if(!empty($_POST)) {
     if(isset($_POST['changeChapter'])) {
         $id = $_POST['id'];
         if($id != -1) {
-
             $title = $_POST['changeChapter'];
             $desc = $_POST['desc'];
             $parent_id = $_POST['parent_id'];
-            // TODO сделать гибкий запрос для title и desc. Не всегда клиент будет менять имя и описание
+
             $db->update('chapter', array('title' => $title, 'updated_at' => date("Y-m-d H:i:s"), 'description' => $desc, 'parent_id' => $parent_id), array('id', $id), '=');
         }
     }
@@ -63,12 +61,8 @@ if(!empty($_POST)) {
             $title = $_POST['changeChapter'];
             $desc = $_POST['desc'];
             $parent_id = $_POST['parent_id'];
-            // TODO сделать гибкий запрос для title и desc. Не всегда клиент будет менять имя и описание
             $db->update('chapter', array('title' => $title, 'updated_at' => date("Y-m-d H:i:s"), 'description' => $desc, 'parent_id' => $parent_id), array('id', $id), '=');
         }
     }
 
 }
-
-
-
