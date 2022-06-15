@@ -5,9 +5,9 @@ if(!empty($_POST)) {
     $con = $db->connect();
 
     if(isset($_POST['addChapter'])) {
-        $title = $_POST['addChapter'];
-        $desc  = $_POST['desc'];
-        $parent_id = $_POST['parent_id'];
+        $title = htmlspecialchars($_POST['addChapter']);
+        $desc  = htmlspecialchars($_POST['desc']);
+        $parent_id = htmlspecialchars($_POST['parent_id']);
 
         $updated_at = date("Y-m-d H:i:s");
         $created_at = date("Y-m-d H:i:s");
@@ -16,8 +16,8 @@ if(!empty($_POST)) {
     }
 
     if(isset($_POST['addElem'])) {
-        $title = $_POST['addElem'];
-        $parent_id = $_POST['parent_id'];
+        $title = htmlspecialchars($_POST['addElem']);
+        $parent_id = htmlspecialchars($_POST['parent_id']);
 
         $updated_at = date("Y-m-d H:i:s");
         $created_at = date("Y-m-d H:i:s");
@@ -26,7 +26,7 @@ if(!empty($_POST)) {
     }
 
     if(isset($_POST['deleteChapter'])) {
-        $id = $_POST['deleteChapter'];
+        $id = htmlspecialchars($_POST['deleteChapter']);
 
         if($id != -1) {
             $db->delete('chapter', 'id='.$id);
@@ -36,7 +36,7 @@ if(!empty($_POST)) {
     }
 
     if(isset($_POST['deleteElem'])) {
-        $id = $_POST['deleteElem'];
+        $id = htmlspecialchars($_POST['deleteElem']);
 
         if($id != -1) {
             $db->delete('elem', 'id='.$id);
@@ -44,23 +44,23 @@ if(!empty($_POST)) {
     }
 
     if(isset($_POST['changeChapter'])) {
-        $id = $_POST['id'];
+        $id = htmlspecialchars($_POST['id']);
         if($id != -1) {
-            $title = $_POST['changeChapter'];
-            $desc = $_POST['desc'];
-            $parent_id = $_POST['parent_id'];
+            $title = htmlspecialchars($_POST['changeChapter']);
+            $desc = htmlspecialchars($_POST['desc']);
+            $parent_id = htmlspecialchars($_POST['parent_id']);
 
             $db->update('chapter', array('title' => $title, 'updated_at' => date("Y-m-d H:i:s"), 'description' => $desc, 'parent_id' => $parent_id), array('id', $id), '=');
         }
     }
 
     if(isset($_POST['changeElem'])) {
-        $id = $_POST['id'];
+        $id = htmlspecialchars($_POST['id']);
         if($id != -1) {
 
-            $title = $_POST['changeChapter'];
-            $desc = $_POST['desc'];
-            $parent_id = $_POST['parent_id'];
+            $title = htmlspecialchars($_POST['changeChapter']);
+            $desc = htmlspecialchars($_POST['desc']);
+            $parent_id = htmlspecialchars($_POST['parent_id']);
             $db->update('chapter', array('title' => $title, 'updated_at' => date("Y-m-d H:i:s"), 'description' => $desc, 'parent_id' => $parent_id), array('id', $id), '=');
         }
     }
